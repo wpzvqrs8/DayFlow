@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-primary: #F6F4F8;
+  --color-bg-secondary: #F8F7FA;
+  --color-bg-card: #FFFFFF;
+  --color-border-soft: #E7E5EA;
+
+  --color-text-primary: #1A1A2E;
+  --color-text-secondary: #6B7280;
+  --color-text-muted: #9CA3AF;
+
+  --color-accent-blue: #3B82F6;
+  --color-accent-purple: #A855F7;
+  --color-accent-green: #22C55E;
+  --color-accent-orange: #F59E0B;
+  --color-accent-red: #EF4444;
+
+  --radius-card: 16px;
+  --radius-card-lg: 20px;
+
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 4px 12px rgba(0,0,0,0.06);
+
+  --animate-shake: shake 400ms ease-in-out;
+  --animate-bounce-check: bounceCheck 300ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+@keyframes bounceCheck {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+:root {
+  --background: #F6F4F8;
+  --foreground: #1A1A2E;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Custom styles for page transitions */
+.page-transition {
+  animation: fadeInTranslate 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInTranslate {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animated gradient lockscreen background */
+.animated-bg {
+  background: linear-gradient(-45deg, #f3e8ff, #e0f2fe, #f3f4f6, #fae8ff);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
