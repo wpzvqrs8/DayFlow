@@ -13,6 +13,23 @@ interface WeeklyTrendProps {
   averageScore: number;
 }
 
+// Custom Tooltip Component
+const CustomTooltip = ({ active, payload }: any) => {
+  if (active && payload && payload.length > 0) {
+    const item = payload[0].payload;
+    return (
+      <div className="bg-bg-card border border-border-soft shadow-lg rounded-xl p-2.5 text-xs select-none">
+        <div className="font-semibold text-text-primary mb-0.5">{item.dayName} ({item.date})</div>
+        <div>
+          <span className="text-text-secondary">Score: </span>
+          <span className="font-bold text-accent-blue">{item.score}</span>
+        </div>
+      </div>
+    );
+  }
+  return null;
+};
+
 export default function WeeklyTrend({ data, averageScore }: WeeklyTrendProps) {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -36,23 +53,6 @@ export default function WeeklyTrend({ data, averageScore }: WeeklyTrendProps) {
       </div>
     );
   }
-
-  // Custom Tooltip Component
-  const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length > 0) {
-      const item = payload[0].payload;
-      return (
-        <div className="bg-bg-card border border-border-soft shadow-lg rounded-xl p-2.5 text-xs select-none">
-          <div className="font-semibold text-text-primary mb-0.5">{item.dayName} ({item.date})</div>
-          <div>
-            <span className="text-text-secondary">Score: </span>
-            <span className="font-bold text-accent-blue">{item.score}</span>
-          </div>
-        </div>
-      );
-    }
-    return null;
-  };
 
   return (
     <div className="w-full h-full min-h-[220px]">

@@ -13,6 +13,42 @@ import { useApp } from '@/context/AppContext';
 
 type Range = '7d' | '30d' | 'all';
 
+// Custom Tooltip Component
+const CustomTooltip = ({ active, payload }: any) => {
+  if (active && payload && payload.length > 0) {
+    const data = payload[0].payload;
+    return (
+      <div className="bg-bg-card border border-border-soft shadow-lg rounded-xl p-3 max-w-[240px] select-none text-xs">
+        <div className="font-semibold text-text-primary mb-1">
+          {format(parseISO(data.date), 'EEEE, MMM d')}
+        </div>
+        <div className="flex items-center gap-1.5 font-bold mb-2">
+          <span className="text-text-secondary">Score:</span>
+          <span
+            style={{
+              color:
+                data.score >= 80
+                  ? '#22C55E'
+                  : data.score >= 60
+                  ? '#3B82F6'
+                  : data.score >= 40
+                  ? '#F59E0B'
+                  : '#EF4444',
+            }}
+          >
+            {data.score}
+            {data.isMissing && <span className="text-[10px] text-text-muted font-normal ml-1">(Neutral)</span>}
+          </span>
+        </div>
+        <p className="text-text-secondary line-clamp-2 italic leading-relaxed">
+          "{data.preview}"
+        </p>
+      </div>
+    );
+  }
+  return null;
+};
+
 export default function ScoreGraph() {
   const { setSelectedDate } = useApp();
   const [range, setRange] = useState<Range>('30d');
@@ -109,41 +145,7 @@ export default function ScoreGraph() {
     }
   };
 
-  // Custom Tooltip Component
-  const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length > 0) {
-      const data = payload[0].payload;
-      return (
-        <div className="bg-bg-card border border-border-soft shadow-lg rounded-xl p-3 max-w-[240px] select-none text-xs">
-          <div className="font-semibold text-text-primary mb-1">
-            {format(parseISO(data.date), 'EEEE, MMM d')}
-          </div>
-          <div className="flex items-center gap-1.5 font-bold mb-2">
-            <span className="text-text-secondary">Score:</span>
-            <span
-              style={{
-                color:
-                  data.score >= 80
-                    ? '#22C55E'
-                    : data.score >= 60
-                    ? '#3B82F6'
-                    : data.score >= 40
-                    ? '#F59E0B'
-                    : '#EF4444',
-              }}
-            >
-              {data.score}
-              {data.isMissing && <span className="text-[10px] text-text-muted font-normal ml-1">(Neutral)</span>}
-            </span>
-          </div>
-          <p className="text-text-secondary line-clamp-2 italic leading-relaxed">
-            "{data.preview}"
-          </p>
-        </div>
-      );
-    }
-    return null;
-  };
+
 
   return (
     <div className="bg-bg-card border border-border-soft rounded-card shadow-card p-6 flex flex-col gap-6 select-none transition-all duration-300 hover:shadow-card-hover hover:-translate-y-0.5">
